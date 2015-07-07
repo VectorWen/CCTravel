@@ -34,15 +34,16 @@ bool AppDelegate::applicationDidFinishLaunching() {
     auto director = Director::getInstance();
     auto glview = director->getOpenGLView();
     if(!glview) {
-        glview = GLViewImpl::create("My Game");
+        //glview = GLViewImpl::create("My Game");
+		glview = GLViewImpl::create("Custom My Game");
         director->setOpenGLView(glview);
     }
-
+	glview->setFrameSize(500,500);
     // turn on display FPS
-    director->setDisplayStats(true);
+    //director->setDisplayStats(true);
 
     // set FPS. the default value is 1.0/60 if you don't call this
-    director->setAnimationInterval(1.0 / 60);
+    director->setAnimationInterval(1.0 / 30);
 
     register_all_packages();
 

@@ -29,8 +29,32 @@ bool HelloWorld::init()
     
     Size visibleSize = Director::getInstance()->getVisibleSize();
     Vec2 origin = Director::getInstance()->getVisibleOrigin();
+	//定制HelloWorld
+	//弄了背景图
+	auto background = Sprite::create("custom_hello_world.jpg");
+	background->setPosition(Vec2(visibleSize.width/2+origin.x,visibleSize.height/2+origin.y));
+	this->addChild(background,0);
 
-    /////////////////////////////
+	//显示个Label 标题,显示在背景图的上面
+	auto labelTitle = Label::createWithTTF("Custom Hello World", "fonts/Marker Felt.ttf", 60);
+    labelTitle->setPosition(Vec2(origin.x + visibleSize.width/2,
+		origin.y + visibleSize.height/2 + labelTitle->getContentSize().height/2 + background->getContentSize().height/2));
+    this->addChild(labelTitle, 1);
+
+	//使用Label 做点击菜单项，显示在背景图的下面
+	auto labelMenu = Label::createWithTTF("Click Me,Click Me", "fonts/Marker Felt.ttf", 60);
+	auto closeMenu = MenuItemLabel::create(labelMenu);
+	closeMenu->setPosition(Vec2(origin.x + visibleSize.width/2 - background->getContentSize().width/2 + labelMenu->getContentSize().width/2,
+		origin.y + visibleSize.height/2 - background->getContentSize().width/2 + labelMenu->getContentSize().height/2));
+	closeMenu->setCallback(CC_CALLBACK_1(HelloWorld::menuCloseCallback, this));
+	auto menu = Menu::create(closeMenu,NULL);
+	menu->setPosition(Vec2::ZERO);
+    this->addChild(menu, 1);
+
+
+	//下面是新建工程的HelloWorld 代码
+
+  /*  /////////////////////////////
     // 2. add a menu item with "X" image, which is clicked to quit the program
     //    you may modify it.
 
@@ -70,7 +94,7 @@ bool HelloWorld::init()
     sprite->setPosition(Vec2(visibleSize.width/2 + origin.x, visibleSize.height/2 + origin.y));
 
     // add the sprite as a child to this layer
-    this->addChild(sprite, 0);
+    this->addChild(sprite, 0); */
     
     return true;
 }
